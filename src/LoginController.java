@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
-public class Scene1Controller {
+public class LoginController {
 
     @FXML
     TextField nametextfield;
@@ -26,13 +26,15 @@ public class Scene1Controller {
     private Scene scene;
     private Parent root;
 
+    public static User user;
+
     public void loginButtonHandler(ActionEvent event) throws IOException {
 
         // Get text from text field
         String username = nametextfield.getText();
         String password = passwordtextfield.getText();  
 
-        User user = new User(username, password);
+        user = new User(username, password);
 
         File accountsfile = new File("accounts.txt");
 
@@ -55,13 +57,9 @@ public class Scene1Controller {
                 System.out.println("Login successful");
 
                 // Load Scene2.fxml when login button is clicked
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Scene2.fxml"));
-                // Load Scene2Controller
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+                // Load the FXML file
                 root = loader.load();
-                Scene2Controller scene2Controller = loader.getController();
-                // Pass username from textfield to displayName() method
-                scene2Controller.displayName(username);
-
                 // Load stage and scene
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
